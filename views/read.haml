@@ -1,0 +1,9 @@
+%form{action: "#{@root}/edit"}
+  %input{type: "hidden", name: "pagename", value: @pagename}
+  %input{type: "submit", value: "編集"}
+- if @source_exsists
+  %div
+    :preserve
+      #{@content}
+- else
+  %p このページはまだ作成されていません。

@@ -1,0 +1,5 @@
+srcrepo
+*.swp
+dst
+conf.yaml
+post-generation.rb

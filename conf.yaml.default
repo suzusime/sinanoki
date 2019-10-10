@@ -1,0 +1,15 @@
+
+# 原稿ファイルのリポジトリ
+# - #{source_repogitory}/src に Markdown などのテキストを
+# - #{source_repogitory}/img に画像を
+# 入れる
+source_repogitory: 'srcrepo'
+
+# Wikiが置かれる場所のパスのルート
+wiki_root: ''
+
+# 静的サイトが置かれる場所のパスのルート
+public_root: ''
+
+# 静的サイトの出力先
+public_dest: 'dst'

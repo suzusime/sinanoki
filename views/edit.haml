@@ -1,0 +1,16 @@
+-if @preview_mode
+  %h1 #{@pagename} のプレビュー
+  %div
+    :preserve
+      #{@preview_content}
+-else
+  %h1 #{@pagename} を編集
+%form{:action => "#{@root}/update", :method => "post", :enctype => "multipart/form-data"}
+  %textarea{:cols => "100", rows: "30", :name => "content"} #{@content}
+  %input{type: "hidden", name: "pagename", value: @pagename}
+  %br
+  %p
+    概要：
+    %input{type: "text", name:"commitmessage", size: "100", value: @commitmessage}
+  %input{:type => "submit", :name => "preview", :value => "プレビュー", :formaction => "#{@root}/preview"}
+  %input{:type => "submit", :name => "submit", :value => "確定"}
