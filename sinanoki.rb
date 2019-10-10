@@ -137,7 +137,9 @@ post  WIKI_ROOT+'/update' do
   renderer.set_wiki_mode
   
   # フック
-  system('ruby post-generation.rb')
+  if File.exist?('post-generation.rb') then
+    system('ruby post-generation.rb')
+  end
 
   # 更新終了
   redirect to(CGI.escape("#{WIKI_ROOT}/#{pagename}.html"))
