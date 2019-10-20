@@ -120,6 +120,7 @@ post  WIKI_ROOT+'/update' do
   # 静的サイト用HTMLを生成
   @rouge_css = rouge_css
   @root = PUBLIC_ROOT
+  @last_modified = g.log.path("src/#{pagename}.md").first.committer_date
   renderer.set_public_mode
   File.open("#{SourceRepo}/src/#{pagename}.md", "r") do |f|
     @content = markdown.render(f.read)
@@ -160,8 +161,10 @@ get WIKI_ROOT+'/generate_all' do
   # 静的サイト用HTMLを生成
   @rouge_css = rouge_css
   @root = PUBLIC_ROOT
+  g = Git.open(SourceRepo)
   renderer.set_public_mode
   filelist.each do |pagename|
+    @last_modified = g.log.path("src/#{pagename}.md").first.committer_date
     File.open("#{SourceRepo}/src/#{pagename}.md", "r") do |f|
       @content = markdown.render(f.read)
     end
