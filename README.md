@@ -18,8 +18,8 @@ $ bundle install --path vendor/bundle
 
 ```sh
 $ cp conf.yaml.default conf.yaml # 設定ファイルの作成
-$ ruby init_repo.rb # データを保存するためのGitリポジトリを作成
-$ ruby copy_static_files.rb # cssやjs等のファイルを静的サイトの出力ディレクトリにコピー
+$ bundle exec ruby init_repo.rb # データを保存するためのGitリポジトリを作成
+$ bundle exec ruby copy_static_files.rb # cssやjs等のファイルを静的サイトの出力ディレクトリにコピー
 ```
 
 `srcrepo` ディレクトリ以下に原稿ファイル用のリポジトリが作成されます。

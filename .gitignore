@@ -3,3 +3,5 @@ srcrepo
 dst
 conf.yaml
 post-generation.rb
+vendor
+.bundle
