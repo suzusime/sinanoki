@@ -3,13 +3,15 @@
 
 ## 使い方
 ### 依存ライブラリのインストール
-まだ Bundler 用の設定ファイルを作っていないので、以下のGemを何らかの方法でインストールしてください。
+[Bundler](https://bundler.io/) が必要です。あらかじめインストールしておいてください。
 
-- sinatra
-- haml
-- redcarpet
-- rouge
-- git
+Bundler のインストールが済んでいる場合、
+
+```sh
+$ bundle install --path vendor/bundle
+```
+
+で依存ライブラリをインストールできます。
 
 ### 初期化
 最初に一度だけ行ってください。
@@ -24,7 +26,7 @@ $ ruby copy_static_files.rb # cssやjs等のファイルを静的サイトの出
 
 ### 起動
 ```sh
-$ ruby sinanoki.rb
+$ bundle exec ruby sinanoki.rb
 ```
 
 で起動します。
@@ -40,8 +42,6 @@ $ ruby sinanoki.rb
 
 サイト全体を再生成したいときは、 `http://localhost:4567/generate_all` にアクセスしてください。
 特に新しいページを作ったときは、これを行わないとリンク元のページに `<未>` が表示されたままになります。
-
-cssなどはコピーされないので、 `public` ディレクトリ以下のディレクトリを手動でコピーしてください（今後自動化予定）。
 
 ### 静的ファイルのサーバーへのコピー（いわゆるデプロイ）
 `post-generation.rb` という名前でRubyスクリプトを置いておくと、「静的ファイルの生成」の後にそのスクリプトが実行されます。
@@ -61,6 +61,7 @@ system("rsync -av dst/ remoteserver:public_html/shoko/")
 以下の拡張があります。
 
 - `[[pagename]]` で、サイトの中の `pagename` という名前のページにリンクするWiki風記法
+- `$\sin x$`, `$$\cos x$$` という記法でのTeX数式対応（[KaTeX](https://katex.org/)を利用）
 
 ## リポジトリのフック
 （これはsinanoki自体の機能ではありませんが）Gitリポジトリにpost-commitフックを仕込むことで、コミット時（＝記事更新時）に何らかの動作をさせることができます。
