@@ -1,8 +1,7 @@
 -if @preview_mode
   %h1 #{@pagename} のプレビュー
-  %div
-    :preserve
-      #{@preview_content}
+  %div<
+    #{@preview_content}
 -else
   %h1 #{@pagename} を編集
 %form{:action => "#{@root}/update", :method => "post", :enctype => "multipart/form-data"}

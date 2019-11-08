@@ -14,6 +14,7 @@ SourceRepo = sinanoki_config["source_repogitory"].freeze
 PublicDest = sinanoki_config["public_dest"].freeze
 WIKI_ROOT = sinanoki_config["wiki_root"].freeze
 PUBLIC_ROOT = sinanoki_config["public_root"].freeze
+SITE_NAME = sinanoki_config["site_name"].freeze
 
 FileUtils.mkdir_p(PublicDest)
 
@@ -59,6 +60,7 @@ end
 
 get  WIKI_ROOT+'/edit' do
   @pagename = params[:pagename]
+  @pagetitle = "編集: #{@pagename} - #{SITE_NAME}"
   @rouge_css = rouge_css
   @root = WIKI_ROOT
   if File.exist?("#{SourceRepo}/src/#{@pagename}.md") then
@@ -72,6 +74,7 @@ end
 
 get  WIKI_ROOT+'/*.html' do
   @pagename = params[:splat][0]
+  @pagetitle = "#{@pagename} - #{SITE_NAME}"
   # puts "pagename は #{@pagename} です"
   @rouge_css = rouge_css
   @root = WIKI_ROOT
@@ -81,6 +84,7 @@ get  WIKI_ROOT+'/*.html' do
       @content = markdown.render(f.read)
     end
   end
+  puts @content.inspect
   haml :read
 end
 
@@ -89,6 +93,7 @@ post  WIKI_ROOT+'/preview' do
   @preview_mode = true
   @rouge_css = rouge_css
   @pagename = params[:pagename]
+  @pagetitle = "プレビュー: #{@pagename} - #{SITE_NAME}"
   @content = params[:content]
   @commitmessage = params[:commitmessage]
   @preview_content = markdown.render(@content)
@@ -98,6 +103,7 @@ end
 post  WIKI_ROOT+'/update' do
   @root = WIKI_ROOT
   pagename = params[:pagename]
+  @pagetitle = "#{pagename} - #{SITE_NAME}"
   newcontent = params[:content]
   commitmessage = params[:commitmessage]
   if commitmessage == '' then
@@ -164,6 +170,7 @@ get WIKI_ROOT+'/generate_all' do
   g = Git.open(SourceRepo)
   renderer.set_public_mode
   filelist.each do |pagename|
+    @pagetitle = "#{pagename} - #{SITE_NAME}"
     @last_modified = g.log.path("src/#{pagename}.md").first.committer_date
     File.open("#{SourceRepo}/src/#{pagename}.md", "r") do |f|
       @content = markdown.render(f.read)

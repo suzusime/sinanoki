@@ -2,8 +2,7 @@
   %input{type: "hidden", name: "pagename", value: @pagename}
   %input{type: "submit", value: "編集"}
 - if @source_exsists
-  %div
-    :preserve
-      #{@content}
+  %div<
+    #{@content}
 - else
   %p このページはまだ作成されていません。
