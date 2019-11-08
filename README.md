@@ -15,11 +15,12 @@
 最初に一度だけ行ってください。
 
 ```sh
-$ cp conf.yaml.default conf.yaml
-$ ruby init_repo.rb
+$ cp conf.yaml.default conf.yaml # 設定ファイルの作成
+$ ruby init_repo.rb # データを保存するためのGitリポジトリを作成
+$ ruby copy_static_files.rb # cssやjs等のファイルを静的サイトの出力ディレクトリにコピー
 ```
 
-`srcrepo` ディレクトリ以下に原稿ファイル用のレポジトリが作成されます。
+`srcrepo` ディレクトリ以下に原稿ファイル用のリポジトリが作成されます。
 
 ### 起動
 ```sh
@@ -32,7 +33,7 @@ $ ruby sinanoki.rb
 
 上の「編集」ボタンを押すとそのページを編集できます。
 
-編集ページで「更新」を押すと、 `srcrepo` のGitレポジトリにMarkdownのファイルが生成され、自動でコミットされます。
+編集ページで「更新」を押すと、 `srcrepo` のGitリポジトリにMarkdownのファイルが生成され、自動でコミットされます。
 
 ### 静的ファイルの生成
 公開サーバーで公開するための静的なファイルが、コミットと同時に `dst` ディレクトリに生成されます。この際、生成（更新）されるファイルは今更新したファイルだけです。
@@ -47,6 +48,13 @@ cssなどはコピーされないので、 `public` ディレクトリ以下の�
 
 ここでrsyncなどを行うようにすると、サイトデータの更新後自動でサーバーにコピーさせることができます。
 
+`post-generation.rb` の例：
+
+```ruby
+#!/usr/bin/env ruby
+system("rsync -av dst/ remoteserver:public_html/shoko/")
+```
+
 ## Markdown記法について
 基本的には [Redcarpet](https://github.com/vmg/redcarpet) の対応している記法に従います。
 
@@ -54,3 +62,14 @@ cssなどはコピーされないので、 `public` ディレクトリ以下の�
 
 - `[[pagename]]` で、サイトの中の `pagename` という名前のページにリンクするWiki風記法
 
+## リポジトリのフック
+（これはsinanoki自体の機能ではありませんが）Gitリポジトリにpost-commitフックを仕込むことで、コミット時（＝記事更新時）に何らかの動作をさせることができます。
+
+たとえば、 `srcrepo/.git/hooks/post-commit` に
+
+```sh
+#!/bin/sh
+git push origin master
+```
+
+と書くと、記事リポジトリをリモートリポジトリにバックアップできます。
