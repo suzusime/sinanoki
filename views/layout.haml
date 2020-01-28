@@ -24,4 +24,4 @@
       %script{src: "#{@root}/js/katex.js"}
       %script{src: "#{@root}/js/auto-render.js", onload: "renderMathInElement(document.body);"}
       %script{src: "#{@root}/js/copy-tex.js"}
-      <script>document.addEventListener("DOMContentLoaded", function() { renderMathInElement(document.body, {delimiters: [{left: "$$", right: "$$", display: true},{left: "$", right: "$", display: false}]})});</script>
+      <script>document.addEventListener("DOMContentLoaded", function() { renderMathInElement(document.body, {delimiters: [{left: "$$", right: "$$", display: true},{left: "$", right: "$", display: false}], macros: {"\\set": "\\left\\{#1\\right\\}", "\\setm": "\\left\\{#1\\ \\middle\\vert\\ #2\\right\\}", "\\bra":"\\left\\langle#1\\right|", "\\ket":"\\left|#1\\right\\rangle", "\\braket":"\\left\\langle#1\\middle|#2\\right\\rangle", "\\braketm":"\\left\\langle#1\\middle|#2\\middle|#3\\right\\rangle"}});});</script>
