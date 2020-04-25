@@ -51,7 +51,7 @@ end
 # 諸々のグローバルなオブジェクトの用意
 rouge_css = Rouge::Themes::IgorPro.render(:scope => '.highlight')
 renderer = CustomRender.new(hard_wrap: true)
-markdown = Redcarpet::Markdown.new(renderer, fenced_code_blocks: true, strikethrough: true, underline: true, footnotes: true, no_intra_emphasis: true)
+markdown = Redcarpet::Markdown.new(renderer, fenced_code_blocks: true, strikethrough: true, underline: true, footnotes: true, no_intra_emphasis: true, tables: true)
 
 # ここからルーティング
 get WIKI_ROOT+'/' do
