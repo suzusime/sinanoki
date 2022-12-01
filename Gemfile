@@ -4,7 +4,7 @@ source "https://rubygems.org"
 
 git_source(:github) {|repo_name| "https://github.com/#{repo_name}" }
 
-gem 'sinatra', '~> 1.4'
+gem 'sinatra', '~> 2.2'
 gem 'haml', '~> 5.0'
 gem 'redcarpet', '~> 3.4'
 gem 'rouge', '~> 2.2'
